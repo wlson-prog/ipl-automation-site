@@ -2,31 +2,107 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>IPL 2026 Live Updates</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL 2026 Live Updates | Automation Hub</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; }
-        .container { max-width: 800px; margin: auto; border: 1px solid #ddd; padding: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
+        /* Modern Design & Colors */
+        :root {
+            --ipl-blue: #1a237e;
+            --ipl-gold: #ff9900;
+            --light-bg: #f4f7f6;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light-bg); margin: 0; padding: 0; color: #333; }
+        header { background: var(--ipl-blue); color: white; padding: 20px; text-align: center; border-bottom: 5px solid var(--ipl-gold); }
+        .container { max-width: 900px; margin: 20px auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        /* Countdown Style */
+        .countdown-box { background: #fff3e0; border: 1px solid var(--ipl-gold); padding: 15px; border-radius: 8px; margin-bottom: 30px; text-align: center; }
+        #timer { font-size: 2rem; font-weight: bold; color: var(--ipl-blue); }
+
+        /* Points Table Design */
+        .table-section h2 { border-left: 5px solid var(--ipl-blue); padding-left: 10px; }
+        .ipl-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .ipl-table th { background-color: var(--ipl-blue); color: white; padding: 12px; text-align: left; }
+        .ipl-table td { padding: 10px; border-bottom: 1px solid #ddd; }
+        .ipl-table tr:hover { background-color: #f1f1f1; }
+
+        /* News Section */
+        .news-card { border-left: 4px solid var(--ipl-gold); background: #fafafa; padding: 10px 15px; margin-bottom: 10px; transition: 0.3s; }
+        .news-card:hover { transform: translateX(5px); background: #fdfdfd; }
+        .news-card a { color: var(--ipl-blue); font-weight: bold; text-decoration: none; }
+
+        footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #666; margin-top: 40px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>IPL 2026 Points Table</h1>
-        <p>Last Updated: Automated via GitHub Actions</p>
-        
-        <div id="table-container">
-    <p>Loading Latest Standings...</p>
+
+<header>
+    <h1>IPL 2026 Automation Hub</h1>
+    <p>Live Scores • Points Table • Fantasy News</p>
+</header>
+
+<div class="container">
+    <div class="countdown-box">
+        <h3>Season Kickoff: RCB vs Punjab Kings (Expected)</h3>
+        <div id="timer">Loading Countdown...</div>
+        <p><small>Match Starts: March 28, 2026 @ M. Chinnaswamy Stadium</small></p>
+    </div>
+
+    <div class="table-section">
+        <h2>Live Points Table</h2>
+        <div id="table-content">
+            <p>Fetching latest standings from GitHub...</p>
+        </div>
+    </div>
+
+    <div class="news-section" style="margin-top: 40px;">
+        <h2>Latest IPL Headlines</h2>
+        <div id="news-content">
+            <p>Loading news stories...</p>
+        </div>
+    </div>
 </div>
 
+<footer>
+    <p>&copy; 2026 IPL Fan Automation Project | <a href="privacy.html">Privacy Policy</a></p>
+    <p><small>Disclaimer: This is a fan website and is not affiliated with the BCCI or IPL.</small></p>
+</footer>
+
 <script>
-    // This looks for the file your Python script just created
+    // SCRIPT 1: Countdown Timer for March 28, 2026
+    const matchDate = new Date("March 28, 2026 19:30:00").getTime();
+    setInterval(() => {
+        const now = new Date().getTime();
+        const dist = matchDate - now;
+        const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+        const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((dist % (1000 * 60)) / 1000);
+        document.getElementById("timer").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+    }, 1000);
+
+    // SCRIPT 2: Fetch Automated Points Table
     fetch('points-table.html')
         .then(response => response.text())
+        .then(data => { document.getElementById('table-content').innerHTML = data; })
+        .catch(err => { document.getElementById('table-content').innerHTML = "<p>Standings will update here once the season starts.</p>"; });
+
+    // SCRIPT 3: Fetch Dynamic News (RSS to JSON)
+    const rssUrl = 'https://www.espncricinfo.com/rss/content/story/feeds/0.xml';
+    const api_url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+    fetch(api_url)
+        .then(res => res.json())
         .then(data => {
-            document.getElementById('table-container').innerHTML = data;
+            let html = '';
+            data.items.slice(0, 5).forEach(item => {
+                html += `<div class="news-card">
+                            <a href="${item.link}" target="_blank">${item.title}</a><br>
+                            <small>${new Date(item.pubDate).toLocaleDateString()}</small>
+                         </div>`;
+            });
+            document.getElementById('news-content').innerHTML = html;
         });
 </script>
+
 </body>
 </html>
