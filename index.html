@@ -3,35 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPLCricAI | Live Standings, Full Squads & AI Insights</title>
+    <title>IPLCricAI | Live Standings, 14-Member Squads & 2026 AI Insights</title>
     <style>
-        :root { --primary: #1a237e; --secondary: #ff9900; --bg: #f4f7f6; --white: #ffffff; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); margin: 0; color: #333; line-height: 1.6; }
+        :root { --primary: #1a237e; --secondary: #ff9900; --bg: #f0f2f5; --white: #ffffff; --text: #333; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg); margin: 0; color: var(--text); line-height: 1.6; }
         header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; border-bottom: 6px solid var(--secondary); }
-        .container { max-width: 1150px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         @media (max-width: 850px) { .container { grid-template-columns: 1fr; } }
         
         .card { background: var(--white); border-radius: 15px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 25px; }
         h2 { color: var(--primary); border-left: 5px solid var(--secondary); padding-left: 15px; margin-top: 0; }
 
-        /* Countdown & Live Widget */
         .live-widget { background: linear-gradient(135deg, #1a237e, #283593); color: white; text-align: center; border-radius: 15px; padding: 20px; margin-bottom: 25px; }
-        #timer { font-size: 2.5rem; font-weight: 800; color: var(--secondary); }
+        #timer { font-size: 2.8rem; font-weight: 800; color: var(--secondary); text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
 
         /* Team Grid */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }
-        .team-btn { border: none; padding: 15px 5px; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; transition: 0.3s; font-size: 0.75rem; color: white; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 20px; }
+        .team-btn { border: none; padding: 18px 5px; border-radius: 10px; cursor: pointer; font-weight: 800; text-transform: uppercase; transition: 0.3s; font-size: 0.8rem; color: white; border-bottom: 4px solid rgba(0,0,0,0.2); }
+        .team-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
         .csk{background:#fdb913;color:#003087} .mi{background:#004ba0} .rcb{background:#2b2b2b;color:#db0007} .kkr{background:#3a225d;color:#f3ad09} .gt{background:#0b1e3c;color:#bc9411} .rr{background:#ea1a85} .srh{background:#ff8228;color:black} .lsg{background:#0057e2;color:#f7e32a} .dc{background:#001c58} .pbks{background:#ed1b24}
 
-        /* Modal / Popup */
+        /* Modal */
         .modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
-        .modal-content { background:#fff; margin:2% auto; border-radius:15px; width:95%; max-width:900px; overflow:hidden; animation: slideIn 0.3s; }
+        .modal-content { background:#fff; margin:2% auto; border-radius:15px; width:95%; max-width:900px; overflow:hidden; animation: slideIn 0.3s ease-out; }
         @keyframes slideIn { from{transform:translateY(-50px);opacity:0} to{transform:translateY(0);opacity:1} }
         .modal-header { background:var(--primary); color:white; padding:20px; display:flex; justify-content:space-between; align-items:center; }
         
-        .squad-table { width: 100%; border-collapse: collapse; }
-        .squad-table th { background: #f8f9fa; padding: 12px; text-align: left; font-size: 0.8rem; }
-        .squad-table td { padding: 12px; border-bottom: 1px solid #eee; }
+        .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; background: #f1f3f9; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid var(--primary); }
+        .staff-grid p { margin: 5px 0; font-size: 0.9rem; }
+
+        /* Share Buttons */
+        .share-container { display: flex; gap: 10px; margin-top: 20px; justify-content: center; }
+        .share-btn { padding: 10px 15px; border-radius: 8px; text-decoration: none; color: white; font-weight: bold; font-size: 0.9rem; }
+        .wa { background: #25D366; } .fb { background: #1877F2; }
 
         footer { background: #1a1a1a; color: #fff; padding: 40px 20px; text-align: center; margin-top: 50px; }
         footer a { color: #aaa; text-decoration: none; margin: 0 10px; }
@@ -41,50 +45,54 @@
 
 <header>
     <h1>IPLCricAI</h1>
-    <p>Live 2026 Automation • AI Squad Analysis • Real-time Stats</p>
+    <p>84-Match Marathon • AI Squad Database • 2026 Live Standings</p>
 </header>
 
 <div class="container">
     <main>
         <div class="live-widget">
-            <h3>TATA IPL 2026 KICKOFF</h3>
-            <p>RCB (Defending Champions) vs Punjab Kings</p>
+            <h3>TATA IPL 2026 COUNTDOWN</h3>
+            <p><strong>Match 1:</strong> RCB vs Punjab Kings | M. Chinnaswamy Stadium</p>
             <div id="timer">00d 00h 00m 00s</div>
-            <p><small>March 28, 2026 | Bengaluru</small></p>
+            <p><small>SEASON STARTS: MARCH 28, 2026 @ 19:30 IST</small></p>
         </div>
 
         <div class="card">
             <h2>Live Points Table</h2>
-            <input type="text" id="teamSearch" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:15px;" placeholder="🔍 Search Team (e.g. RCB, Mumbai)...">
-            <div id="table-content"><p>Syncing with GitHub Actions...</p></div>
+            <input type="text" id="teamSearch" style="width:100%; padding:14px; border:2px solid #ddd; border-radius:10px; margin-bottom:15px;" placeholder="🔍 Search Team (e.g. RCB, Mumbai, Chennai)...">
+            <div id="table-content"><p>Syncing with AI Automation Hub...</p></div>
         </div>
 
         <div class="card">
-            <h2>IPL 2026 Full Team Squads</h2>
-            <p>Click a team to see all members, coaches, and auction prices.</p>
+            <h2>Official 14-Member Core Squads</h2>
+            <p>Explore Coaches, Owners, and Player Auction Prices for the 2026 Season.</p>
             <div class="team-grid">
-                <button class="team-btn csk" onclick="openSquad('CSK')">CSK</button>
-                <button class="team-btn mi" onclick="openSquad('MI')">MI</button>
-                <button class="team-btn rcb" onclick="openSquad('RCB')">RCB</button>
-                <button class="team-btn kkr" onclick="openSquad('KKR')">KKR</button>
-                <button class="team-btn gt" onclick="openSquad('GT')">GT</button>
-                <button class="team-btn rr" onclick="openSquad('RR')">RR</button>
-                <button class="team-btn srh" onclick="openSquad('SRH')">SRH</button>
-                <button class="team-btn lsg" onclick="openSquad('LSG')">LSG</button>
-                <button class="team-btn dc" onclick="openSquad('DC')">DC</button>
-                <button class="team-btn pbks" onclick="openSquad('PBKS')">PBKS</button>
+                <button class="team-btn csk" onclick="openSquad('CSK')">Chennai</button>
+                <button class="team-btn mi" onclick="openSquad('MI')">Mumbai</button>
+                <button class="team-btn rcb" onclick="openSquad('RCB')">Bengaluru</button>
+                <button class="team-btn kkr" onclick="openSquad('KKR')">Kolkata</button>
+                <button class="team-btn gt" onclick="openSquad('GT')">Gujarat</button>
+                <button class="team-btn rr" onclick="openSquad('RR')">Rajasthan</button>
+                <button class="team-btn srh" onclick="openSquad('SRH')">Hyderabad</button>
+                <button class="team-btn lsg" onclick="openSquad('LSG')">Lucknow</button>
+                <button class="team-btn dc" onclick="openSquad('DC')">Delhi</button>
+                <button class="team-btn pbks" onclick="openSquad('PBKS')">Punjab</button>
             </div>
         </div>
     </main>
 
     <aside>
         <div class="card">
-            <h2>AI News Feed</h2>
-            <div id="news-content">Loading headlines...</div>
+            <h2>AI News Headlines</h2>
+            <div id="news-content">Fetching today's stories...</div>
         </div>
-        <div class="card" style="background:#fff5f5; border:1px solid #ff0000; text-align:center;">
-            <p><strong>Watch Live Analysis</strong></p>
-            <a href="YOUR_YOUTUBE_URL" style="background:#ff0000;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block;">Visit YouTube</a>
+        
+        <div class="card" style="text-align:center;">
+            <h3>Share Squads</h3>
+            <div class="share-container">
+                <a href="https://api.whatsapp.com/send?text=Check out the full IPL 2026 Squads on iplcricai.com!" class="share-btn wa" target="_blank">WhatsApp</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://iplcricai.com" class="share-btn fb" target="_blank">Facebook</a>
+            </div>
         </div>
     </aside>
 </div>
@@ -93,83 +101,125 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2 id="modalTitle" style="color:white;border:none;margin:0"></h2>
-            <span onclick="closeModal()" style="cursor:pointer;font-size:30px;">&times;</span>
+            <span onclick="closeModal()" style="cursor:pointer;font-size:35px;">&times;</span>
         </div>
-        <div id="modalBody" style="padding:25px; max-height: 70vh; overflow-y: auto;"></div>
+        <div id="modalBody" style="padding:25px; max-height: 75vh; overflow-y: auto;"></div>
     </div>
 </div>
 
 <footer>
     <a href="about.html">About</a> | <a href="contact.html">Contact</a> | <a href="privacy.html">Privacy</a>
-    <p>&copy; 2026 IPLCricAI.com</p>
+    <p>&copy; 2026 IPLCricAI.com | Powered by AI Automation</p>
 </footer>
 
 <script>
+// FULL 14-MEMBER CORE DATABASE (UPDATED MARCH 9, 2026)
 const teamData = {
-    CSK: { n:"Chennai Super Kings", o:"N. Srinivasan", hc:"Stephen Fleming", p:[
-        {n:"Ruturaj Gaikwad", r:"Captain", pr:"Retained"}, {n:"MS Dhoni", r:"WK", pr:"Retained"},
+    CSK: { n:"Chennai Super Kings", o:"N. Srinivasan", hc:"Stephen Fleming", bat:"Michael Hussey", bowl:"Eric Simons", field:"Rajiv Kumar", p:[
+        {n:"Ruturaj Gaikwad", r:"Captain", pr:"Retained"}, {n:"Sanju Samson", r:"WK", pr:"Trade"},
         {n:"Prashant Veer", r:"All-rounder", pr:"₹14.20 Cr"}, {n:"Kartik Sharma", r:"WK", pr:"₹14.20 Cr"},
-        {n:"Sanju Samson", r:"WK", pr:"Trade"}, {n:"Sarfaraz Khan", r:"Batter", pr:"₹75 L"},
-        {n:"Matt Henry", r:"Bowler", pr:"₹2 Cr"}, {n:"Rahul Chahar", r:"Bowler", pr:"₹5.20 Cr"}
+        {n:"Shivam Dube", r:"All-rounder", pr:"₹12 Cr"}, {n:"Noor Ahmad", r:"Bowler", pr:"₹10 Cr"},
+        {n:"MS Dhoni", r:"WK", pr:"₹4 Cr"}, {n:"Khaleel Ahmed", r:"Bowler", pr:"₹4.8 Cr"},
+        {n:"Anshul Kamboj", r:"All-rounder", pr:"₹3.4 Cr"}, {n:"Sarfaraz Khan", r:"Batter", pr:"₹75 L"},
+        {n:"Dewald Brevis", r:"Batter", pr:"₹2.2 Cr"}, {n:"Akeal Hosein", r:"Bowler", pr:"₹2 Cr"},
+        {n:"Nathan Ellis", r:"Bowler", pr:"₹2 Cr"}, {n:"Jamie Overton", r:"Bowler", pr:"₹1.5 Cr"}
     ]},
-    KKR: { n:"Kolkata Knight Riders", o:"SRK & Mehta Group", hc:"Chandrakant Pandit", p:[
-        {n:"Cameron Green", r:"All-rounder", pr:"₹25.20 Cr"}, {n:"Matheesha Pathirana", r:"Bowler", pr:"₹18 Cr"},
-        {n:"Rinku Singh", r:"Batter", pr:"Retained"}, {n:"Mustafizur Rahman", r:"Bowler", pr:"₹9.20 Cr"},
-        {n:"Rachin Ravindra", r:"All-rounder", pr:"₹2 Cr"}, {n:"Rahul Tripathi", r:"Batter", pr:"₹75 L"}
-    ]},
-    RCB: { n:"Royal Challengers Bengaluru", o:"United Spirits", hc:"Andy Flower", p:[
+    RCB: { n:"Royal Challengers Bengaluru", o:"United Spirits Ltd", hc:"Andy Flower", bat:"Neil McKenzie", bowl:"Adam Griffith", field:"Malolan Rangarajan", p:[
         {n:"Virat Kohli", r:"Batter", pr:"Retained"}, {n:"Rajat Patidar", r:"Captain", pr:"Retained"},
-        {n:"Venkatesh Iyer", r:"All-rounder", pr:"₹7 Cr"}, {n:"Mangesh Yadav", r:"Bowler", pr:"₹5.2 Cr"},
-        {n:"Josh Hazlewood", r:"Bowler", pr:"Retained"}, {n:"Phil Salt", r:"WK", pr:"Retained"}
+        {n:"Venkatesh Iyer", r:"All-rounder", pr:"₹7 Cr"}, {n:"Mangesh Yadav", r:"All-rounder", pr:"₹5.2 Cr"},
+        {n:"Mohammed Siraj", r:"Bowler", pr:"₹12.25 Cr"}, {n:"Yash Dayal", r:"Bowler", pr:"Retained"},
+        {n:"Phil Salt", r:"WK", pr:"₹5 Cr"}, {n:"Josh Hazlewood", r:"Bowler", pr:"Retained"},
+        {n:"Bhuvneshwar Kumar", r:"Bowler", pr:"Retained"}, {n:"Tim David", r:"Batter", pr:"Retained"},
+        {n:"Krunal Pandya", r:"All-rounder", pr:"Retained"}, {n:"Jordan Cox", r:"WK", pr:"₹75 L"},
+        {n:"Jacob Duffy", r:"Bowler", pr:"₹2 Cr"}, {n:"Will Jacks", r:"All-rounder", pr:"Retained"}
     ]},
-    LSG: { n:"Lucknow Super Giants", o:"RPSG Group", hc:"Justin Langer", p:[
-        {n:"Rishabh Pant", r:"Captain", pr:"₹27 Cr"}, {n:"Nicholas Pooran", r:"WK", pr:"Retained"},
-        {n:"Mayank Yadav", r:"Bowler", pr:"Retained"}, {n:"Josh Inglis", r:"WK", pr:"₹8.6 Cr"},
-        {n:"Wanindu Hasaranga", r:"All-rounder", pr:"₹2 Cr"}, {n:"Anrich Nortje", r:"Bowler", pr:"₹2 Cr"}
+    KKR: { n:"Kolkata Knight Riders", o:"SRK & Mehta Group", hc:"Abhishek Nayar", bat:"TBA", bowl:"Bharat Arun", field:"Ryan ten Doeschate", p:[
+        {n:"Cameron Green", r:"All-rounder", pr:"₹25.20 Cr"}, {n:"Matheesha Pathirana", r:"Bowler", pr:"₹18 Cr"},
+        {n:"Rinku Singh", r:"Batter", pr:"Retained"}, {n:"Sunil Narine", r:"All-rounder", pr:"Retained"},
+        {n:"Mustafizur Rahman", r:"Bowler", pr:"₹9.20 Cr"}, {n:"Varun Chakravarthy", r:"Bowler", pr:"Retained"},
+        {n:"Harshit Rana", r:"Bowler", pr:"Retained"}, {n:"Tejasvi Singh", r:"Batter", pr:"₹3 Cr"},
+        {n:"Rachin Ravindra", r:"All-rounder", pr:"₹2 Cr"}, {n:"Finn Allen", r:"Batter", pr:"₹2 Cr"},
+        {n:"Vaibhav Arora", r:"Bowler", pr:"Retained"}, {n:"Ajinkya Rahane", r:"Captain", pr:"Retained"},
+        {n:"Ramandeep Singh", r:"All-rounder", pr:"Retained"}, {n:"Rahul Tripathi", r:"Batter", pr:"₹75 L"}
     ]},
-    MI: { n:"Mumbai Indians", o:"Reliance", hc:"Mahela Jayawardene", p:[
+    LSG: { n:"Lucknow Super Giants", o:"Sanjiv Goenka", hc:"Justin Langer", bat:"Adam Voges", bowl:"Bharat Arun", field:"Jonty Rhodes", p:[
+        {n:"Rishabh Pant", r:"Captain", pr:"₹27 Cr"}, {n:"Nicholas Pooran", r:"WK", pr:"₹21 Cr"},
+        {n:"Mayank Yadav", r:"Bowler", pr:"₹11 Cr"}, {n:"Mohammed Shami", r:"Bowler", pr:"₹10 Cr"},
+        {n:"Josh Inglis", r:"WK", pr:"₹8.6 Cr"}, {n:"Avesh Khan", r:"Bowler", pr:"₹9.75 Cr"},
+        {n:"Abdul Samad", r:"Batter", pr:"₹4.2 Cr"}, {n:"Ayush Badoni", r:"All-rounder", pr:"₹4 Cr"},
+        {n:"Mohsin Khan", r:"Bowler", pr:"₹4 Cr"}, {n:"Mitchell Marsh", r:"All-rounder", pr:"₹3.4 Cr"},
+        {n:"Wanindu Hasaranga", r:"All-rounder", pr:"₹2 Cr"}, {n:"Anrich Nortje", r:"Bowler", pr:"₹2 Cr"},
+        {n:"Aiden Markram", r:"Batter", pr:"₹2 Cr"}, {n:"Akash Singh", r:"Bowler", pr:"₹30 L"}
+    ]},
+    MI: { n:"Mumbai Indians", o:"Mukesh Ambani", hc:"Mahela Jayawardene", bat:"Kieron Pollard", bowl:"Lasith Malinga", field:"James Pamment", p:[
         {n:"Hardik Pandya", r:"Captain", pr:"Retained"}, {n:"Jasprit Bumrah", r:"Bowler", pr:"Retained"},
-        {n:"Rohit Sharma", r:"Batter", pr:"Retained"}, {n:"Quinton de Kock", r:"WK", pr:"₹1 Cr"},
-        {n:"Suryakumar Yadav", r:"Batter", pr:"Retained"}, {n:"Atharva Ankolekar", r:"All-rounder", pr:"₹30 L"}
+        {n:"Rohit Sharma", r:"Batter", pr:"Retained"}, {n:"Suryakumar Yadav", r:"Batter", pr:"Retained"},
+        {n:"Tilak Varma", r:"Batter", pr:"Retained"}, {n:"Quinton de Kock", r:"WK", pr:"₹1 Cr"},
+        {n:"Shardul Thakur", r:"All-rounder", pr:"Trade"}, {n:"Trent Boult", r:"Bowler", pr:"Retained"},
+        {n:"Deepak Chahar", r:"Bowler", pr:"Retained"}, {n:"Will Jacks", r:"All-rounder", pr:"Retained"},
+        {n:"Mayank Markande", r:"Bowler", pr:"Trade"}, {n:"Tim David", r:"Batter", pr:"Retained"},
+        {n:"Mitchell Santner", r:"All-rounder", pr:"Retained"}, {n:"Allah Ghazanfar", r:"Bowler", pr:"Retained"}
     ]},
-    PBKS: { n:"Punjab Kings", o:"Preity Zinta", hc:"Ricky Ponting", p:[
+    PBKS: { n:"Punjab Kings", o:"Preity Zinta", hc:"Ricky Ponting", bat:"TBA", bowl:"James Hopes", field:"Trevor Gonsalves", p:[
         {n:"Shreyas Iyer", r:"Captain", pr:"₹18 Cr"}, {n:"Arshdeep Singh", r:"Bowler", pr:"Retained"},
-        {n:"Yuzvendra Chahal", r:"Bowler", pr:"Retained"}, {n:"Cooper Connolly", r:"All-rounder", pr:"₹3 Cr"},
-        {n:"Ben Dwarshuis", r:"Bowler", pr:"₹4.4 Cr"}, {n:"Pravin Dubey", r:"Bowler", pr:"₹30 L"}
+        {n:"Yuzvendra Chahal", r:"Bowler", pr:"Retained"}, {n:"Ben Dwarshuis", r:"Bowler", pr:"₹4.4 Cr"},
+        {n:"Cooper Connolly", r:"All-rounder", pr:"₹2 Cr"}, {n:"Shashank Singh", r:"Batter", pr:"Retained"},
+        {n:"Marcus Stoinis", r:"All-rounder", pr:"Retained"}, {n:"Prabhsimran Singh", r:"WK", pr:"Retained"},
+        {n:"Nehal Wadhera", r:"Batter", pr:"Retained"}, {n:"Lockie Ferguson", r:"Bowler", pr:"Retained"},
+        {n:"Xavier Bartlett", r:"Bowler", pr:"Retained"}, {n:"Vyshak Vijaykumar", r:"Bowler", pr:"Retained"},
+        {n:"Praveen Dubey", r:"Bowler", pr:"₹30 L"}, {n:"Vishal Nishad", r:"Bowler", pr:"₹30 L"}
     ]},
-    GT: { n:"Gujarat Titans", o:"CVC Capital", hc:"Ashish Nehra", p:[
+    DC: { n:"Delhi Capitals", o:"GMR & JSW", hc:"Hemang Badani", bat:"TBA", bowl:"Venugopal Rao", field:"TBA", p:[
+        {n:"Axar Patel", r:"Captain", pr:"Retained"}, {n:"KL Rahul", r:"WK", pr:"Retained"},
+        {n:"Kuldeep Yadav", r:"Bowler", pr:"Retained"}, {n:"Auqib Dar", r:"All-rounder", pr:"₹8.4 Cr"},
+        {n:"Mitchell Starc", r:"Bowler", pr:"Retained"}, {n:"T. Natarajan", r:"Bowler", pr:"Retained"},
+        {n:"Tristan Stubbs", r:"Batter", pr:"Retained"}, {n:"Mukesh Kumar", r:"Bowler", pr:"Retained"},
+        {n:"Pathum Nissanka", r:"Batter", pr:"₹4 Cr"}, {n:"David Miller", r:"Batter", pr:"₹2 Cr"},
+        {n:"Ben Duckett", r:"WK", pr:"₹2 Cr"}, {n:"Nitish Rana", r:"Batter", pr:"Trade"},
+        {n:"Prithvi Shaw", r:"Batter", pr:"₹75 L"}, {n:"Abishek Porel", r:"WK", pr:"Retained"}
+    ]},
+    GT: { n:"Gujarat Titans", o:"Torrent Group", hc:"Ashish Nehra", bat:"TBA", bowl:"TBA", field:"TBA", p:[
         {n:"Shubman Gill", r:"Captain", pr:"Retained"}, {n:"Rashid Khan", r:"All-rounder", pr:"Retained"},
-        {n:"Mohammed Siraj", r:"Bowler", pr:"Retained"}, {n:"Jason Holder", r:"All-rounder", pr:"₹7 Cr"},
-        {n:"Tom Banton", r:"WK", pr:"₹2 Cr"}, {n:"Ashok Sharma", r:"Bowler", pr:"₹90 L"}
+        {n:"Jos Buttler", r:"WK", pr:"Retained"}, {n:"Mohammed Siraj", r:"Bowler", pr:"Retained"},
+        {n:"Kagiso Rabada", r:"Bowler", pr:"Retained"}, {n:"Sai Sudharsan", r:"Batter", pr:"Retained"},
+        {n:"Jason Holder", r:"All-rounder", pr:"₹7 Cr"}, {n:"Prasidh Krishna", r:"Bowler", pr:"Retained"},
+        {n:"Washington Sundar", r:"All-rounder", pr:"Retained"}, {n:"Shahrukh Khan", r:"Batter", pr:"Retained"},
+        {n:"Rahul Tewatia", r:"All-rounder", pr:"Retained"}, {n:"Glenn Phillips", r:"Batter", pr:"Retained"},
+        {n:"Ishant Sharma", r:"Bowler", pr:"Retained"}, {n:"Ashok Sharma", r:"Bowler", pr:"₹90 L"}
     ]},
-    RR: { n:"Rajasthan Royals", o:"Manoj Badale", hc:"Kumar Sangakkara", p:[
+    RR: { n:"Rajasthan Royals", o:"Manoj Badale", hc:"Kumar Sangakkara", bat:"TBA", bowl:"Shane Bond", field:"Dishant Yagnik", p:[
         {n:"Riyan Parag", r:"Captain", pr:"Retained"}, {n:"Yashasvi Jaiswal", r:"Batter", pr:"Retained"},
         {n:"Ravindra Jadeja", r:"All-rounder", pr:"Trade"}, {n:"Ravi Bishnoi", r:"Bowler", pr:"₹7.2 Cr"},
-        {n:"Sam Curran", r:"All-rounder", pr:"Trade"}, {n:"Kuldeep Sen", r:"Bowler", pr:"₹75 L"}
+        {n:"Sam Curran", r:"All-rounder", pr:"Trade"}, {n:"Dhruv Jurel", r:"WK", pr:"Retained"},
+        {n:"Shimron Hetmyer", r:"Batter", pr:"Retained"}, {n:"Jofra Archer", r:"Bowler", pr:"Retained"},
+        {n:"Sandeep Sharma", r:"Bowler", pr:"Retained"}, {n:"Donovan Ferreira", r:"Batter", pr:"Trade"},
+        {n:"Tushar Deshpande", r:"Bowler", pr:"Retained"}, {n:"Nandre Burger", r:"Bowler", pr:"Retained"},
+        {n:"Kuldeep Sen", r:"Bowler", pr:"₹75 L"}, {n:"Vignesh Puthur", r:"Bowler", pr:"₹30 L"}
     ]},
-    DC: { n:"Delhi Capitals", o:"GMR/JSW", hc:"Hemang Badani", p:[
-        {n:"Axar Patel", r:"Captain", pr:"Retained"}, {n:"KL Rahul", r:"WK", pr:"Retained"},
-        {n:"Auqib Nabi", r:"All-rounder", pr:"₹8.4 Cr"}, {n:"Pathum Nissanka", r:"Batter", pr:"₹4 Cr"},
-        {n:"David Miller", r:"Batter", pr:"₹2 Cr"}, {n:"Prithvi Shaw", r:"Batter", pr:"₹75 L"}
-    ]},
-    SRH: { n:"Sunrisers Hyderabad", o:"Kavya Maran", hc:"Daniel Vettori", p:[
+    SRH: { n:"Sunrisers Hyderabad", o:"Kavya Maran", hc:"Daniel Vettori", bat:"James Franklin", bowl:"Dale Steyn", field:"Ryan Cook", p:[
         {n:"Pat Cummins", r:"Captain", pr:"Retained"}, {n:"Heinrich Klaasen", r:"WK", pr:"Retained"},
-        {n:"Liam Livingstone", r:"All-rounder", pr:"₹13 Cr"}, {n:"Travis Head", r:"Batter", pr:"Retained"},
-        {n:"Abhishek Sharma", r:"All-rounder", pr:"Retained"}, {n:"Salil Arora", r:"WK", pr:"₹1.5 Cr"}
+        {n:"Abhishek Sharma", r:"All-rounder", pr:"Retained"}, {n:"Travis Head", r:"Batter", pr:"Retained"},
+        {n:"Nitish Reddy", r:"All-rounder", pr:"Retained"}, {n:"Liam Livingstone", r:"All-rounder", pr:"₹13 Cr"},
+        {n:"Aiden Markram", r:"Batter", pr:"Retained"}, {n:"Salil Arora", r:"WK", pr:"₹1.5 Cr"},
+        {n:"Jack Edwards", r:"All-rounder", pr:"₹3 Cr"}, {n:"Shivam Mavi", r:"Bowler", pr:"₹75 L"},
+        {n:"Sakib Hussain", r:"Bowler", pr:"₹30 L"}, {n:"Amit Kumar", r:"Bowler", pr:"₹30 L"},
+        {n:"Praful Hinge", r:"Bowler", pr:"₹30 L"}, {n:"Krains Fuletra", r:"Bowler", pr:"₹30 L"}
     ]}
 };
 
 function openSquad(k){
     const t=teamData[k]; document.getElementById('modalTitle').innerText=t.n;
-    let h=`<div style="background:#f1f3f9;padding:15px;border-radius:10px;margin-bottom:15px;">
-    <p><strong>Owner:</strong> ${t.o} | <strong>Coach:</strong> ${t.hc}</p></div>
-    <table class="squad-table"><thead><tr><th>Player</th><th>Role</th><th>Price</th></tr></thead><tbody>`;
-    t.p.forEach(p=>{ h+=`<tr><td><strong>${p.n}</strong></td><td>${p.r}</td><td style="color:green"><strong>${p.pr}</strong></td></tr>`; });
+    let h=`<div class="staff-grid">
+    <p><strong>Owner:</strong> ${t.o}</p><p><strong>Head Coach:</strong> ${t.hc}</p>
+    <p><strong>Batting:</strong> ${t.bat || 'TBA'}</p><p><strong>Bowling:</strong> ${t.bowl || 'TBA'}</p>
+    <p><strong>Fielding:</strong> ${t.field || 'TBA'}</p></div>
+    <table class="squad-table"><thead><tr><th>Player</th><th>Role</th><th>Status/Price</th></tr></thead><tbody>`;
+    t.p.forEach(p=>{ h+=`<tr><td><strong>${p.n}</strong></td><td>${p.r}</td><td style="color:#2e7d32;font-weight:bold;">${p.pr}</td></tr>`; });
     h+=`</tbody></table>`; document.getElementById('modalBody').innerHTML=h; document.getElementById('squadModal').style.display="block";
 }
 function closeModal(){document.getElementById('squadModal').style.display="none";}
 
-// COUNTDOWN
+// TIMER
 const target=new Date("March 28, 2026 19:30:00").getTime();
 setInterval(()=>{
     const now=new Date().getTime(); const d=target-now;
@@ -188,7 +238,7 @@ document.getElementById('teamSearch').addEventListener('keyup',function(){
 // NEWS
 fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.espncricinfo.com/rss/content/story/feeds/0.xml')}`)
 .then(res=>res.json()).then(d=>{
-    let h=''; d.items.slice(0,5).forEach(i=>{ h+=`<div class="news-item"><a href="${i.link}" target="_blank">${i.title}</a></div>`; });
+    let h=''; d.items.slice(0,5).forEach(i=>{ h+=`<div style="border-bottom:1px solid #eee;padding:10px 0;"><a href="${i.link}" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:600;">${i.title}</a></div>`; });
     document.getElementById('news-content').innerHTML=h;
 });
 </script>
