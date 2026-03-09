@@ -3,189 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPLCricAI | Live IPL 2026 Standings, AI Predictions & News</title>
-    <link rel="apple-touch-icon" href="https://via.placeholder.com/192/1a237e/ffffff?text=AI">
+    <title>IPLCricAI | Live IPL 2026 Standings, Squads & AI Predictions</title>
     <style>
         :root { --primary: #1a237e; --secondary: #ff9900; --bg: #f0f2f5; --white: #ffffff; --text: #333; }
-        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg); margin: 0; color: var(--text); line-height: 1.6; }
-        
-        /* Header & Navigation */
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg); margin: 0; color: var(--text); line-height: 1.6; }
         header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; border-bottom: 6px solid var(--secondary); }
-        .hero-title { margin: 0; font-size: 2.8rem; font-weight: 800; }
-        .hero-tagline { margin: 5px 0 0; opacity: 0.9; font-size: 1.1rem; }
-
         .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         @media (max-width: 850px) { .container { grid-template-columns: 1fr; } }
-
-        /* Common Card Style */
-        .card { background: var(--white); border-radius: 15px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 25px; border: 1px solid #e1e4e8; }
-        h2 { color: var(--primary); border-left: 5px solid var(--secondary); padding-left: 15px; margin-top: 0; font-size: 1.5rem; }
-
-        /* Search Bar */
-        .search-box { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; margin: 15px 0; outline: none; box-sizing: border-box; transition: 0.3s; }
-        .search-box:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(26, 35, 126, 0.15); }
-
-        /* Countdown */
+        .card { background: var(--white); border-radius: 15px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 25px; }
+        h2 { color: var(--primary); border-left: 5px solid var(--secondary); padding-left: 15px; margin-top: 0; }
+        .search-box { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; margin: 15px 0; outline: none; box-sizing: border-box; }
         .countdown-box { background: linear-gradient(145deg, #1a237e, #283593); color: white; text-align: center; border: none; }
-        #timer { font-size: 2.5rem; font-weight: 800; color: var(--secondary); margin: 15px 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
-
-        /* Points Table Styling */
-        .table-wrapper { overflow-x: auto; }
-        .ipl-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .ipl-table th { background: #f8f9fa; color: #555; padding: 12px; text-align: left; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid #eee; }
-        .ipl-table td { padding: 14px 12px; border-bottom: 1px solid #eee; font-weight: 500; }
-        .ipl-table tr:hover { background-color: #f9fbff; }
-
-        /* Blog Section */
-        .blog-content h3 { color: var(--primary); margin-top: 25px; }
-        .blog-content p { margin-bottom: 15px; color: #444; }
-        .ai-badge { background: #e8eaf6; color: var(--primary); padding: 4px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
-
-        /* News List */
-        .news-item { border-bottom: 1px solid #eee; padding: 12px 0; transition: 0.2s; }
-        .news-item:last-child { border: none; }
-        .news-item a { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: block; }
-        .news-item a:hover { color: var(--secondary); }
-        .news-date { font-size: 0.75rem; color: #999; display: block; margin-top: 4px; }
-
-        footer { background: #1a1a1a; color: #fff; padding: 50px 20px; text-align: center; margin-top: 60px; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 12px; font-size: 0.9rem; transition: 0.3s; }
-        footer a:hover { color: var(--secondary); }
-        .disclaimer { font-size: 0.75rem; color: #777; max-width: 700px; margin: 25px auto 0; line-height: 1.4; }
+        #timer { font-size: 2.5rem; font-weight: 800; color: var(--secondary); margin: 10px 0; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 20px; }
+        .team-btn { border: none; padding: 15px 5px; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; transition: 0.3s; font-size: 0.75rem; color: white; border-bottom: 3px solid rgba(0,0,0,0.2); }
+        .team-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .csk{background:#fdb913;color:#003087}.mi{background:#004ba0}.rcb{background:#2b2b2b;color:#db0007}.kkr{background:#3a225d;color:#f3ad09}.gt{background:#0b1e3c;color:#bc9411}.rr{background:#ea1a85}.srh{background:#ff8228;color:black}.lsg{background:#0057e2;color:#f7e32a}.dc{background:#001c58}.pbks{background:#ed1b24}
+        .modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter: blur(4px); }
+        .modal-content { background:#fff; margin:2% auto; border-radius:15px; width:90%; max-width:850px; overflow:hidden; }
+        .modal-header { background:var(--primary); color:white; padding:20px; display:flex; justify-content:space-between; align-items:center; }
+        .staff-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f1f3f9; padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 0.9rem; }
+        .news-item { border-bottom: 1px solid #eee; padding: 10px 0; }
+        .news-item a { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        footer { background: #1a1a1a; color: #fff; padding: 40px 20px; text-align: center; margin-top: 50px; }
+        footer a { color: #aaa; text-decoration: none; margin: 0 10px; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 class="hero-title">IPLCricAI</h1>
-    <p class="hero-tagline">Data-Driven Insights • AI Predictions • Live 2026 Standings</p>
+    <h1>IPLCricAI</h1>
+    <p>Live 2026 Automation • AI Squad Analysis • Real-time Stats</p>
 </header>
 
 <div class="container">
     <main>
         <div class="card countdown-box">
-            <span class="ai-badge">AI CLOCK</span>
-            <h3 style="margin-top:10px;">IPL 2026 Season Opener</h3>
-            <p>RCB vs Punjab Kings | M. Chinnaswamy Stadium</p>
+            <h3>TATA IPL 2026: Opening Match</h3>
+            <p>RCB (Defending Champions) vs Punjab Kings</p>
             <div id="timer">00d 00h 00m 00s</div>
-            <p><small>LIVE STARTS: MARCH 28, 2026 @ 19:30 IST</small></p>
+            <p><small>March 28, 2026 | M. Chinnaswamy Stadium, Bengaluru</small></p>
         </div>
 
         <div class="card">
             <h2>Live Points Table</h2>
             <input type="text" id="teamSearch" class="search-box" placeholder="🔍 Search Team or City (e.g. RCB, Mumbai, Chennai)...">
-            <div class="table-wrapper" id="table-content">
-                <p style="text-align:center; color:#999;">The automated table is loading from GitHub Actions...</p>
+            <div id="table-content"><p>Loading standings...</p></div>
+        </div>
+
+        <div class="card">
+            <h2>IPL 2026 Team Squads</h2>
+            <p>Click to view Coaches, Owners, and Auction Prices.</p>
+            <div class="team-grid">
+                <button class="team-btn csk" onclick="openSquad('CSK')">CSK</button>
+                <button class="team-btn mi" onclick="openSquad('MI')">MI</button>
+                <button class="team-btn rcb" onclick="openSquad('RCB')">RCB</button>
+                <button class="team-btn kkr" onclick="openSquad('KKR')">KKR</button>
+                <button class="team-btn gt" onclick="openSquad('GT')">GT</button>
+                <button class="team-btn rr" onclick="openSquad('RR')">RR</button>
+                <button class="team-btn srh" onclick="openSquad('SRH')">SRH</button>
+                <button class="team-btn lsg" onclick="openSquad('LSG')">LSG</button>
+                <button class="team-btn dc" onclick="openSquad('DC')">DC</button>
+                <button class="team-btn pbks" onclick="openSquad('PBKS')">PBKS</button>
             </div>
         </div>
 
-        <article class="card blog-content">
-            <h2>IPL 2026: AI Season Preview & Predictions</h2>
-            <p style="font-size: 0.9rem; color: #888;">Published: March 9, 2026 | Analysis by IPLCricAI Tech Team</p>
-            
-            <p>As the <strong>IPL 2026</strong> season approaches, our proprietary AI models have processed over 10,000 data points from the recent player auctions and team reshuffles. With the opening match set for <strong>March 28</strong>, here is how the competition is shaping up.</p>
-
-            <h3>The Rise of the "Mega" Franchises</h3>
-            <p>Our predictive algorithms show a significant performance spike for <strong>Royal Challengers Bengaluru (RCB)</strong> following their historic title win last year. The retention of their core bowling unit gives them a 68% probability of reaching the playoffs again.</p>
-
-            <h3>Key Player Trades: AI Impact Score</h3>
-            <p>The trade of <strong>Sanju Samson to Chennai Super Kings (CSK)</strong> has been flagged by our AI as the "Trade of the Decade." Samson’s impact score in middle-overs hitting is expected to increase CSK's total run-rate by 0.8 per over in 2026.</p>
-
-            <div style="background: #fff9e6; border-left: 4px solid var(--secondary); padding: 15px; margin: 20px 0;">
-                <h4 style="margin-top: 0; color: #b45f06;">AI Forecast: Top 4 Seedings</h4>
-                <ol>
-                    <li><strong>CSK</strong> - Predicted Points: 18-20</li>
-                    <li><strong>RCB</strong> - Predicted Points: 16-18</li>
-                    <li><strong>KKR</strong> - Predicted Points: 16-18</li>
-                    <li><strong>MI</strong> - Predicted Points: 14-16</li>
-                </ol>
-            </div>
-
-            <h3>Technology Behind the Stats</h3>
-            <p>This website uses <strong>automated Python scripts</strong> to fetch ball-by-ball data and update the standings you see above. This ensures that every run, wicket, and point is reflected on your screen within minutes of the match ending.</p>
+        <article class="card">
+            <h2>AI Season Analysis: March 2026</h2>
+            <p>The <strong>IPL 2026</strong> season is set to be the biggest ever with an 84-match schedule. Our AI models highlight <strong>Kolkata Knight Riders (KKR)</strong> as the strongest bowling unit after their ₹25.20 Cr acquisition of <strong>Cameron Green</strong> and ₹18 Cr bid for <strong>Matheesha Pathirana</strong>.</p>
+            <p>Meanwhile, <strong>CSK</strong> has shifted strategy, investing heavily in youth with record uncapped signings <strong>Prashant Veer</strong> and <strong>Kartik Sharma</strong> (₹14.20 Cr each).</p>
         </article>
     </main>
 
     <aside>
         <div class="card">
-            <h2>Latest AI News Feed</h2>
-            <div id="news-content">
-                <p>Syncing with sports servers...</p>
-            </div>
+            <h2>AI News Feed</h2>
+            <div id="news-content">Syncing headlines...</div>
         </div>
-
-        <div class="card" style="background: #fff5f5; border: 1px solid #ff0000; text-align: center;">
-            <p style="font-weight: bold; margin-bottom: 10px; color: #c62828;">Watch AI Match Analysis</p>
-            <p style="font-size: 0.85rem; margin-bottom: 15px;">Subscribe to our channel for daily predicted Dream11 teams!</p>
-            <a href="YOUR_YOUTUBE_URL_HERE" target="_blank" style="background: #ff0000; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Visit YouTube</a>
+        <div class="card" style="background:#fff5f5; border:1px solid #ff0000; text-align:center;">
+            <p><strong>Watch Match Analysis</strong></p>
+            <a href="YOUR_YOUTUBE_URL" style="background:#ff0000;color:white;padding:10px;border-radius:5px;text-decoration:none;display:block;">Visit YouTube</a>
         </div>
     </aside>
 </div>
 
-<footer>
-    <div class="footer-links">
-        <a href="about.html">About Us</a> | 
-        <a href="contact.html">Contact Us</a> | 
-        <a href="privacy.html">Privacy Policy</a> | 
-        <a href="terms.html">Terms of Service</a> | 
-        <a href="disclaimer.html">Disclaimer</a>
+<div id="squadModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2 id="modalTitle" style="color:white;border:none;margin:0"></h2><span onclick="closeModal()" style="cursor:pointer;font-size:28px;">&times;</span></div>
+        <div id="modalBody" style="padding:20px;"></div>
     </div>
-    <p class="disclaimer">
-        <strong>Legal Notice:</strong> IPLCricAI.com is an independent fan-developed project utilizing automation for data visualization. We are not officially affiliated with the BCCI, Indian Premier League (IPL), or any participating franchise. All brand names and logos are properties of their respective owners.
-    </p>
-    <p style="margin-top:20px; opacity:0.8;">&copy; 2026 IPLCricAI Automation Hub</p>
+</div>
+
+<footer>
+    <a href="about.html">About</a> | <a href="contact.html">Contact</a> | <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a> | <a href="disclaimer.html">Disclaimer</a>
+    <p>&copy; 2026 IPLCricAI.com | All Rights Reserved.</p>
 </footer>
 
 <script>
-    // 1. COUNTDOWN LOGIC
-    const targetDate = new Date("March 28, 2026 19:30:00").getTime();
-    setInterval(() => {
-        const now = new Date().getTime();
-        const diff = targetDate - now;
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById("timer").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
-    }, 1000);
+const teamData = {
+    CSK: { n:"Chennai Super Kings", o:"N. Srinivasan", hc:"Stephen Fleming", bc:"Michael Hussey", boc:"Eric Simons", p:[{n:"Ruturaj Gaikwad",r:"Captain",p:"₹18 Cr"},{n:"Sanju Samson",r:"WK (Trade)",p:"₹18 Cr"},{n:"Prashant Veer",r:"AR (Uncapped)",p:"₹14.20 Cr"},{n:"Kartik Sharma",r:"WK (Uncapped)",p:"₹14.20 Cr"},{n:"MS Dhoni",r:"WK",p:"₹4 Cr"}]},
+    KKR: { n:"Kolkata Knight Riders", o:"SRK & Mehta Group", hc:"Chandrakant Pandit", bc:"TBA", boc:"Bharat Arun", p:[{n:"Cameron Green",r:"AR",p:"₹25.20 Cr"},{n:"Matheesha Pathirana",r:"Bowl",p:"₹18 Cr"},{n:"Rinku Singh",r:"Bat",p:"₹13 Cr"},{n:"Mustafizur Rahman",r:"Bowl",p:"₹9.20 Cr"}]},
+    RCB: { n:"Royal Challengers Bengaluru", o:"United Spirits", hc:"Andy Flower", bc:"Neil McKenzie", boc:"Adam Griffith", p:[{n:"Virat Kohli",r:"Bat",p:"₹21 Cr"},{n:"Rajat Patidar",r:"Captain",p:"₹11 Cr"},{n:"Venkatesh Iyer",r:"AR",p:"₹7 Cr"},{n:"Mangesh Yadav",r:"AR",p:"₹5.20 Cr"}]},
+    LSG: { n:"Lucknow Super Giants", o:"RPSG Group", hc:"Justin Langer", bc:"Adam Voges", boc:"Morne Morkel", p:[{n:"Rishabh Pant",r:"Captain",p:"₹27 Cr"},{n:"Nicholas Pooran",r:"Bat",p:"₹21 Cr"},{n:"Mayank Yadav",r:"Bowl",p:"₹11 Cr"},{n:"Josh Inglis",r:"WK",p:"₹8.60 Cr"}]},
+    MI: { n:"Mumbai Indians", o:"Reliance", hc:"Mahela Jayawardene", bc:"Kieron Pollard", boc:"Lasith Malinga", p:[{n:"Hardik Pandya",r:"Captain",p:"₹18 Cr"},{n:"Jasprit Bumrah",r:"Bowl",p:"₹18 Cr"},{n:"Rohit Sharma",r:"Bat",p:"₹16.30 Cr"},{n:"Quinton de Kock",r:"WK",p:"₹1 Cr"}]},
+    PBKS: { n:"Punjab Kings", o:"Preity Zinta & Co", hc:"Ricky Ponting", bc:"TBA", boc:"James Hopes", p:[{n:"Shreyas Iyer",r:"Captain",p:"₹18 Cr"},{n:"Arshdeep Singh",r:"Bowl",p:"₹18 Cr"},{n:"Yuzvendra Chahal",r:"Bowl",p:"₹18 Cr"},{n:"Ben Dwarshuis",r:"AR",p:"₹4.40 Cr"}]},
+    DC: { n:"Delhi Capitals", o:"GMR & JSW", hc:"Hemang Badani", bc:"TBA", boc:"Venugopal Rao", p:[{n:"Axar Patel",r:"Captain",p:"₹16.5 Cr"},{n:"KL Rahul",r:"WK",p:"₹14 Cr"},{n:"Kuldeep Yadav",r:"Bowl",p:"₹13.25 Cr"},{n:"Auqib Dar",r:"AR",p:"₹8.40 Cr"}]},
+    GT: { n:"Gujarat Titans", o:"CVC Capital", hc:"Ashish Nehra", bc:"TBA", boc:"TBA", p:[{n:"Rashid Khan",r:"AR",p:"₹18 Cr"},{n:"Shubman Gill",r:"Captain",p:"₹16.5 Cr"},{n:"Jos Buttler",r:"WK",p:"₹15.75 Cr"},{n:"Jason Holder",r:"AR",p:"₹7 Cr"}]},
+    RR: { n:"Rajasthan Royals", o:"Manoj Badale", hc:"Kumar Sangakkara", bc:"TBA", boc:"Shane Bond", p:[{n:"Yashasvi Jaiswal",r:"Bat",p:"₹18 Cr"},{n:"Ravindra Jadeja",r:"AR (Trade)",p:"₹18 Cr"},{n:"Ravi Bishnoi",r:"Bowl",p:"₹7.20 Cr"},{n:"Sam Curran",r:"AR (Trade)",p:"₹2.40 Cr"}]},
+    SRH: { n:"Sunrisers Hyderabad", o:"Kavya Maran", hc:"Daniel Vettori", bc:"James Franklin", boc:"Dale Steyn", p:[{n:"Heinrich Klaasen",r:"WK",p:"₹23 Cr"},{n:"Pat Cummins",r:"Captain",p:"₹18 Cr"},{n:"Travis Head",r:"Bat",p:"₹14 Cr"},{n:"Liam Livingstone",r:"AR",p:"₹13 Cr"}]}
+};
 
-    // 2. FETCH & FILTER TABLE
-    fetch('points-table.html')
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById('table-content').innerHTML = data;
-            const table = document.querySelector('table');
-            if (table) table.id = "pointsTable";
-        });
+function openSquad(k){
+    const t=teamData[k]; document.getElementById('modalTitle').innerText=t.n;
+    let h=`<div class="staff-box"><p>Owner: ${t.o}</p><p>Head Coach: ${t.hc}</p><p>Batting: ${t.bc}</p><p>Bowling: ${t.boc}</p></div>
+    <table style="width:100%;border-collapse:collapse;"><thead><tr style="background:#eee"><th>Player</th><th>Role</th><th>Price</th></tr></thead><tbody>`;
+    t.p.forEach(p=>{ h+=`<tr><td style="padding:10px;border-bottom:1px solid #eee"><b>${p.n}</b></td><td>${p.r}</td><td style="color:green"><b>${p.p}</b></td></tr>`; });
+    h+=`</tbody></table>`; document.getElementById('modalBody').innerHTML=h; document.getElementById('squadModal').style.display="block";
+}
+function closeModal(){document.getElementById('squadModal').style.display="none";}
 
-    document.getElementById('teamSearch').addEventListener('keyup', function() {
-        const filter = this.value.toUpperCase();
-        const rows = document.querySelectorAll("#pointsTable tr:not(:first-child)");
-        rows.forEach(row => {
-            const teamName = row.getElementsByTagName("td")[0];
-            if (teamName) {
-                const textValue = teamName.textContent || teamName.innerText;
-                row.style.display = textValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-            }
-        });
-    });
+const target=new Date("March 28, 2026 19:30:00").getTime();
+setInterval(()=>{
+    const now=new Date().getTime(); const d=target-now;
+    document.getElementById("timer").innerHTML=`${Math.floor(d/(1000*60*60*24))}d ${Math.floor((d%(1000*60*60*24))/(1000*60*60))}h ${Math.floor((d%(1000*60*60))/(1000*60))}m ${Math.floor((d%(1000*60))/1000)}s`;
+},1000);
 
-    // 3. FETCH AI NEWS (RSS)
-    const rss = 'https://www.espncricinfo.com/rss/content/story/feeds/0.xml';
-    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}`)
-        .then(res => res.json())
-        .then(data => {
-            let newsHtml = '';
-            data.items.slice(0, 6).forEach(item => {
-                newsHtml += `
-                    <div class="news-item">
-                        <a href="${item.link}" target="_blank">${item.title}</a>
-                        <span class="news-date">${new Date(item.pubDate).toLocaleDateString()}</span>
-                    </div>`;
-            });
-            document.getElementById('news-content').innerHTML = newsHtml;
-        });
+fetch('points-table.html').then(res=>res.text()).then(d=>{
+    document.getElementById('table-content').innerHTML=d; const t=document.querySelector('table'); if(t)t.id="ptsTbl";
+});
+
+document.getElementById('teamSearch').addEventListener('keyup',function(){
+    const f=this.value.toUpperCase(); const rows=document.querySelectorAll("#ptsTbl tr:not(:first-child)");
+    rows.forEach(r=>{ const td=r.getElementsByTagName("td")[0]; r.style.display=td && td.innerText.toUpperCase().includes(f)?"":"none"; });
+});
+
+fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.espncricinfo.com/rss/content/story/feeds/0.xml')}`)
+.then(res=>res.json()).then(d=>{
+    let h=''; d.items.slice(0,5).forEach(i=>{ h+=`<div class="news-item"><a href="${i.link}" target="_blank">${i.title}</a></div>`; });
+    document.getElementById('news-content').innerHTML=h;
+});
 </script>
-
 </body>
 </html>
