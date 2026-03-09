@@ -3,104 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPL 2026 Live Updates | Automation Hub</title>
+    <title>IPLCricAI | Live IPL 2026 Standings & AI News</title>
     <style>
-        /* Modern Design & Colors */
         :root {
-            --ipl-blue: #1a237e;
-            --ipl-gold: #ff9900;
-            --light-bg: #f4f7f6;
+            --primary: #1a237e; /* Royal Blue */
+            --secondary: #ff9900; /* Gold */
+            --bg: #f8f9fa;
+            --white: #ffffff;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light-bg); margin: 0; padding: 0; color: #333; }
-        header { background: var(--ipl-blue); color: white; padding: 20px; text-align: center; border-bottom: 5px solid var(--ipl-gold); }
-        .container { max-width: 900px; margin: 20px auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg); margin: 0; color: #333; line-height: 1.6; }
+        header { background: var(--primary); color: white; padding: 30px 20px; text-align: center; border-bottom: 5px solid var(--secondary); }
+        .hero-title { margin: 0; font-size: 2.5rem; letter-spacing: 1px; }
+        .hero-tagline { margin-top: 5px; opacity: 0.9; font-weight: 300; }
         
-        /* Countdown Style */
-        .countdown-box { background: #fff3e0; border: 1px solid var(--ipl-gold); padding: 15px; border-radius: 8px; margin-bottom: 30px; text-align: center; }
-        #timer { font-size: 2rem; font-weight: bold; color: var(--ipl-blue); }
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
 
-        /* Points Table Design */
-        .table-section h2 { border-left: 5px solid var(--ipl-blue); padding-left: 10px; }
-        .ipl-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .ipl-table th { background-color: var(--ipl-blue); color: white; padding: 12px; text-align: left; }
-        .ipl-table td { padding: 10px; border-bottom: 1px solid #ddd; }
-        .ipl-table tr:hover { background-color: #f1f1f1; }
+        .card { background: var(--white); border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        h2 { color: var(--primary); border-left: 4px solid var(--secondary); padding-left: 12px; margin-top: 0; }
+
+        /* Countdown Style */
+        .countdown-box { text-align: center; background: linear-gradient(135deg, #1a237e, #3949ab); color: white; border: none; }
+        #timer { font-size: 2.2rem; font-weight: 800; color: var(--secondary); margin: 15px 0; }
+
+        /* Points Table UI */
+        .ipl-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95rem; }
+        .ipl-table th { background: #eee; color: #444; padding: 12px; text-align: left; text-transform: uppercase; font-size: 0.8rem; }
+        .ipl-table td { padding: 12px; border-bottom: 1px solid #eee; }
+        .ipl-table tr:hover { background-color: #fcfcfc; }
 
         /* News Section */
-        .news-card { border-left: 4px solid var(--ipl-gold); background: #fafafa; padding: 10px 15px; margin-bottom: 10px; transition: 0.3s; }
-        .news-card:hover { transform: translateX(5px); background: #fdfdfd; }
-        .news-card a { color: var(--ipl-blue); font-weight: bold; text-decoration: none; }
+        .news-item { border-bottom: 1px solid #eee; padding: 15px 0; }
+        .news-item:last-child { border: none; }
+        .news-item a { color: var(--primary); text-decoration: none; font-weight: 600; display: block; margin-bottom: 5px; }
+        .news-item a:hover { color: var(--secondary); }
+        .news-date { font-size: 0.8rem; color: #888; }
 
-        footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #666; margin-top: 40px; }
+        footer { background: #222; color: #bbb; padding: 40px 20px; text-align: center; margin-top: 50px; }
+        footer a { color: #fff; text-decoration: none; margin: 0 10px; font-size: 0.9rem; }
+        footer a:hover { color: var(--secondary); }
+        .disclaimer { font-size: 0.75rem; margin-top: 20px; opacity: 0.6; max-width: 600px; margin-left: auto; margin-right: auto; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>IPL Cricket AI 2026</h1>
-    <p>Live Scores • Points Table • Fantasy News</p>
+    <h1 class="hero-title">IPLCricAI</h1>
+    <p class="hero-tagline">Next-Gen IPL 2026 Insights & Automation</p>
 </header>
 
 <div class="container">
-    <div class="countdown-box">
-        <h3>Season Kickoff: RCB vs Punjab Kings (Expected)</h3>
-        <div id="timer">Loading Countdown...</div>
-        <p><small>Match Starts: March 28, 2026 @ M. Chinnaswamy Stadium</small></p>
-    </div>
-
-    <div class="table-section">
-        <h2>Live Points Table</h2>
-        <div id="table-content">
-            <p>Fetching latest standings from GitHub...</p>
+    <main>
+        <div class="card countdown-box">
+            <h3>TATA IPL 2026 Countdown</h3>
+            <p>Defending Champions RCB vs Punjab Kings (Expected Opening Match)</p>
+            <div id="timer">00d 00h 00m 00s</div>
+            <p><small>March 28, 2026 | M. Chinnaswamy Stadium, Bengaluru</small></p>
         </div>
-    </div>
 
-    <div class="news-section" style="margin-top: 40px;">
-        <h2>Latest IPL Headlines</h2>
-        <div id="news-content">
-            <p>Loading news stories...</p>
+        <div class="card">
+            <h2>Live Points Table</h2>
+            <div id="table-content">
+                <p style="color:#888;">Standings will update here daily once the season starts.</p>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <aside>
+        <div class="card">
+            <h2>AI News Feed</h2>
+            <div id="news-content">
+                <p>Analyzing latest headlines...</p>
+            </div>
+        </div>
+
+        <div class="card" style="background: #fff0f0; border: 1px solid #ff0000; text-align: center;">
+            <p style="margin:0; font-weight: bold;">Watch Live Analysis</p>
+            <p style="font-size: 0.8rem;">Get Fantasy Tips on our YouTube Channel!</p>
+            <a href="#" style="background: #ff0000; color:white; padding: 8px 15px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 5px;">Visit Channel</a>
+        </div>
+    </aside>
 </div>
 
 <footer>
-    <p>&copy; 2026 IPL Fan Automation Project | <a href="privacy.html">Privacy Policy</a></p>
-    <p><small>Disclaimer: This is a fan website and is not affiliated with the BCCI or IPL.</small></p>
+    <div class="footer-links">
+        <a href="about.html">About Us</a> | 
+        <a href="contact.html">Contact</a> | 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms</a> | 
+        <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    <p class="disclaimer">
+        Disclaimer: IPLCricAI.com is an independent fan website. We are not officially affiliated with the BCCI, IPL, or any cricket franchise. All logos and trademarks are property of their respective owners.
+    </p>
+    <p>&copy; 2026 IPLCricAI Hub</p>
 </footer>
 
 <script>
-    // SCRIPT 1: Countdown Timer for March 28, 2026
-    const matchDate = new Date("March 28, 2026 19:30:00").getTime();
+    // 1. COUNTDOWN TIMER
+    const target = new Date("March 28, 2026 19:30:00").getTime();
     setInterval(() => {
         const now = new Date().getTime();
-        const dist = matchDate - now;
-        const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-        const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((dist % (1000 * 60)) / 1000);
+        const diff = target - now;
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
         document.getElementById("timer").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
     }, 1000);
 
-    // SCRIPT 2: Fetch Automated Points Table
+    // 2. FETCH POINTS TABLE (FROM GITHUB AUTOMATION)
     fetch('points-table.html')
         .then(response => response.text())
         .then(data => { document.getElementById('table-content').innerHTML = data; })
-        .catch(err => { document.getElementById('table-content').innerHTML = "<p>Standings will update here once the season starts.</p>"; });
+        .catch(err => { console.log("Table pending build..."); });
 
-    // SCRIPT 3: Fetch Dynamic News (RSS to JSON)
+    // 3. FETCH AI NEWS FEED
     const rssUrl = 'https://www.espncricinfo.com/rss/content/story/feeds/0.xml';
-    const api_url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-    fetch(api_url)
+    const proxy = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+    fetch(proxy)
         .then(res => res.json())
         .then(data => {
-            let html = '';
-            data.items.slice(0, 5).forEach(item => {
-                html += `<div class="news-card">
-                            <a href="${item.link}" target="_blank">${item.title}</a><br>
-                            <small>${new Date(item.pubDate).toLocaleDateString()}</small>
-                         </div>`;
+            let newsHtml = '';
+            data.items.slice(0, 6).forEach(item => {
+                newsHtml += `
+                    <div class="news-item">
+                        <a href="${item.link}" target="_blank">${item.title}</a>
+                        <span class="news-date">${new Date(item.pubDate).toLocaleDateString()}</span>
+                    </div>`;
             });
-            document.getElementById('news-content').innerHTML = html;
+            document.getElementById('news-content').innerHTML = newsHtml;
         });
 </script>
 
